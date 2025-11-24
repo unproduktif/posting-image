@@ -1,0 +1,388 @@
+/* client/src/App.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Dark Theme Colors (Inspired by iOS Dark Mode / Vision Pro) */
+  --bg-color: #1a1a1e; /* Main background dark */
+  --surface-color: rgba(255, 255, 255, 0.08); /* Semi-transparent surface for cards, buttons */
+  --border-color: rgba(255, 255, 255, 0.12); /* Subtle border for glass elements */
+  --text-color-primary: #ffffff; /* Main text color */
+  --text-color-secondary: #a0a0a5; /* Secondary text, hints */
+  --accent-color-blue: #0a84ff; /* Apple Blue for primary actions */
+  --accent-color-red: #ff453a; /* Apple Red for destructive actions */
+  --shadow-color: rgba(0, 0, 0, 0.4); /* Deeper shadow for dark theme */
+
+  /* Glassmorphism effect properties */
+  --blur-amount: 20px;
+  --backdrop-saturate: 180%; /* To enhance the frosted look */
+
+  /* Spacing and Radius */
+  --spacing-unit: 16px;
+  --border-radius-lg: 18px;
+  --border-radius-md: 12px;
+  --border-radius-sm: 8px;
+}
+
+/* Global Reset & Base Styles */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  margin: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+}
+
+/* Base Styles for HTML elements */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-color-primary);
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: var(--spacing-unit);
+}
+p {
+  color: var(--text-color-secondary);
+  margin-top: 0;
+  margin-bottom: var(--spacing-unit);
+}
+
+/* App Layout */
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 900px; /* Lebar lebih luas untuk konten */
+  margin: var(--spacing-unit) auto;
+  padding: 0 var(--spacing-unit);
+  flex-grow: 1;
+}
+
+/* --- Components Styling --- */
+
+/* Navbar */
+.navbar {
+  background-color: var(--surface-color); /* Semi-transparent background */
+  backdrop-filter: blur(var(--blur-amount)) saturate(var(--backdrop-saturate)); /* Frosted glass effect */
+  -webkit-backdrop-filter: blur(var(--blur-amount)) saturate(var(--backdrop-saturate));
+  border-bottom: 1px solid var(--border-color); /* Subtle bottom border */
+  padding: 15px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text-color-primary);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-unit); /* Spacing between links */
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-color-secondary);
+  font-weight: 500;
+  font-size: 16px;
+  padding: 8px 12px;
+  border-radius: var(--border-radius-sm);
+  transition: all 0.2s ease-in-out;
+}
+
+.nav-links a.active, /* Untuk menandai link aktif jika pakai NavLink */
+.nav-links a:hover {
+  color: var(--text-color-primary);
+  background-color: rgba(255, 255, 255, 0.08); /* Highlight on hover */
+}
+
+.wallet-address-display {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 8px 14px;
+  border-radius: var(--border-radius-lg);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-color-primary);
+  box-shadow: 0 1px 3px var(--shadow-color); /* Subtle shadow */
+}
+
+/* Buttons */
+.btn-primary, .btn-secondary, .btn-destructive {
+  border: none;
+  padding: 12px 22px;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.2s ease-in-out;
+  display: inline-flex; /* For better icon/text alignment */
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-primary {
+  background-color: var(--accent-color-blue);
+  color: white;
+  box-shadow: 0 4px 10px rgba(10, 132, 255, 0.3);
+}
+.btn-primary:hover {
+  background-color: #007aff; /* Slightly darker blue */
+  box-shadow: 0 6px 15px rgba(10, 132, 255, 0.4);
+}
+
+.btn-secondary {
+  background-color: var(--surface-color);
+  color: var(--text-color-primary);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 5px var(--shadow-color);
+}
+.btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.btn-destructive {
+  background-color: var(--accent-color-red);
+  color: white;
+  box-shadow: 0 4px 10px rgba(255, 69, 58, 0.3);
+}
+.btn-destructive:hover {
+  background-color: #cc372f; /* Slightly darker red */
+  box-shadow: 0 6px 15px rgba(255, 69, 58, 0.4);
+}
+
+/* Cards (Base for all content blocks) */
+.card {
+  background-color: var(--surface-color);
+  backdrop-filter: blur(var(--blur-amount)) saturate(var(--backdrop-saturate));
+  -webkit-backdrop-filter: blur(var(--blur-amount)) saturate(var(--backdrop-saturate));
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-unit) calc(var(--spacing-unit) * 1.5); /* More horizontal padding */
+  margin-bottom: var(--spacing-unit);
+  box-shadow: 0 4px 15px var(--shadow-color); /* Deeper, softer shadow */
+}
+
+/* Forms */
+.input-group {
+  margin-bottom: var(--spacing-unit);
+}
+
+.input-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-color-secondary);
+  margin-bottom: 8px;
+}
+
+.input-group input[type="text"],
+.input-group input[type="file"],
+.input-group textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  box-sizing: border-box;
+  font-size: 16px;
+  color: var(--text-color-primary);
+  background-color: rgba(0, 0, 0, 0.2); /* Slightly darker input background */
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.input-group input[type="text"]:focus,
+.input-group textarea:focus {
+  outline: none;
+  border-color: var(--accent-color-blue);
+  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.3);
+}
+
+/* --- Specific Layout Elements --- */
+.section-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: var(--spacing-unit) * 1.5;
+  color: var(--text-color-primary);
+  text-align: center;
+  padding-top: var(--spacing-unit);
+}
+
+.no-content-message {
+  text-align: center;
+  color: var(--text-color-secondary);
+  font-style: italic;
+  padding: calc(var(--spacing-unit) * 2) 0;
+  font-size: 18px;
+  background-color: var(--surface-color);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--border-color);
+}
+
+/* Post Card Styles */
+.post-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-unit);
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  margin-right: var(--spacing-unit);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: var(--text-color-primary);
+  font-size: 20px;
+}
+
+.post-author {
+  font-weight: 600;
+  color: var(--text-color-primary);
+  font-size: 17px;
+}
+
+.post-image-placeholder {
+  height: 300px; /* Lebih tinggi */
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius-md);
+  margin-bottom: var(--spacing-unit);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color-secondary);
+  font-size: 16px;
+  border: 1px solid var(--border-color);
+}
+
+.post-description {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: var(--spacing-unit);
+  color: var(--text-color-primary);
+}
+
+.post-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-unit);
+  padding-top: var(--spacing-unit);
+  border-top: 1px solid var(--border-color);
+}
+
+.comment-list {
+  border-top: 1px solid var(--border-color);
+  margin-top: var(--spacing-unit);
+  padding-top: var(--spacing-unit);
+}
+
+.comment-item {
+  font-size: 14px;
+  color: var(--text-color-secondary);
+  margin-bottom: 8px;
+  padding-left: 5px;
+  border-left: 2px solid var(--accent-color-blue);
+}
+.comment-item span {
+  font-weight: 500;
+  color: var(--text-color-primary);
+}
+
+.comment-input-area {
+  display: flex;
+  margin-top: var(--spacing-unit);
+  gap: 10px;
+}
+
+/* Profile Specific Styles */
+.profile-header {
+  text-align: center;
+  margin-bottom: calc(var(--spacing-unit) * 2);
+  padding: calc(var(--spacing-unit) * 2);
+}
+
+.profile-avatar {
+  width: 120px; /* Lebih besar */
+  height: 120px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  margin: 0 auto var(--spacing-unit);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: var(--text-color-primary);
+  font-size: 32px;
+  box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+.profile-username {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.profile-wallet-address {
+  font-size: 16px;
+  color: var(--text-color-secondary);
+  margin-bottom: calc(var(--spacing-unit) * 1.5);
+}
+
+.profile-edit-name-section {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-unit);
+  margin-top: var(--spacing-unit);
+}
+.profile-edit-name-section input {
+    width: 280px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 15px;
+  }
+  .nav-links a {
+    margin-left: 15px;
+  }
+  .container {
+    padding: 0 15px;
+  }
+  .post-image-placeholder {
+    height: 200px;
+  }
+  .profile-avatar {
+    width: 90px;
+    height: 90px;
+    font-size: 28px;
+  }
+  .profile-username {
+    font-size: 26px;
+  }
+  .profile-edit-name-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .profile-edit-name-section input, .profile-edit-name-section button {
+    width: 100%;
+  }
+}
