@@ -1,10 +1,12 @@
+// client/src/pages/Profile.js
 import React, { useState, useEffect } from "react";
+import { uploadToIPFS } from "../utils/ipfs";
 
-function Profile({ account, contract }) {
+function Profile({ account, contract, loadingContract }) {
   const [username, setUsername] = useState("");
   const [tempName, setTempName] = useState("");
 
-  const [imageUrl, setImageUrl] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
   const [postDescription, setPostDescription] = useState("");
 
   const [myPosts, setMyPosts] = useState([]);
@@ -58,9 +60,10 @@ function Profile({ account, contract }) {
   };
 
   useEffect(() => {
-    loadProfile();
-    loadMyPosts();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (contract && account) {
+      loadProfile();
+      loadMyPosts();
+    }
   }, [contract, account]);
 
   const handleUpdateName = async () => {
@@ -85,22 +88,27 @@ function Profile({ account, contract }) {
 
   const handleCreatePost = async () => {
     const desc = postDescription.trim();
-    const img = imageUrl.trim();
-    if (!desc || !img) {
-      return alert("Isi URL gambar dan deskripsi.");
+    if (!selectedFile || !desc) {
+      return alert("Pilih gambar dan isi deskripsi.");
     }
     if (!contract) return alert("Contract belum siap.");
 
     try {
       setTxLoading(true);
-      const tx = await contract.createPost(img, desc);
+
+      // 1. Upload gambar ke IPFS (Pinata)
+      const imageUrl = await uploadToIPFS(selectedFile);
+      console.log("IPFS URL:", imageUrl);
+
+      // 2. Simpan post ke blockchain
+      const tx = await contract.createPost(imageUrl, desc);
       await tx.wait();
 
       setPostDescription("");
-      setImageUrl("");
+      setSelectedFile(null);
       await loadMyPosts();
 
-      alert("Post berhasil disimpan ke blockchain.");
+      alert("Post berhasil disimpan ke blockchain + IPFS.");
     } catch (e) {
       console.error(e);
       alert("Gagal membuat post.");
@@ -115,10 +123,18 @@ function Profile({ account, contract }) {
     return d.toLocaleString();
   };
 
+  if (loadingContract && !contract) {
+    return (
+      <div className="card">
+        <p>Menghubungkan ke smart contract…</p>
+      </div>
+    );
+  }
+
   if (!contract) {
     return (
       <div className="card">
-        <p>Menyiapkan koneksi ke smart contract...</p>
+        <p>Contract belum siap. Coba connect wallet dulu.</p>
       </div>
     );
   }
@@ -159,12 +175,12 @@ function Profile({ account, contract }) {
         </h3>
 
         <div className="input-group">
-          <label>URL Gambar (IPFS / HTTPS)</label>
+          <label>Pilih Gambar</label>
           <input
-            type="text"
-            placeholder="contoh: https://gateway.pinata.cloud/ipfs/..."
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
+            id="file-upload"
+            type="file"
+            accept="image/*"
+            onChange={(e) => setSelectedFile(e.target.files[0] || null)}
           />
         </div>
 
@@ -184,7 +200,7 @@ function Profile({ account, contract }) {
           style={{ width: "100%" }}
           disabled={txLoading}
         >
-          {txLoading ? "Mengirim transaksi..." : "Upload ke Blockchain"}
+          {txLoading ? "Mengirim transaksi..." : "Upload ke Blockchain + IPFS"}
         </button>
       </div>
 
