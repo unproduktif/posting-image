@@ -1,388 +1,399 @@
 /* client/src/App.css */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
-  /* Dark Theme Colors (Inspired by iOS Dark Mode / Vision Pro) */
-  --bg-color: #1a1a1e; /* Main background dark */
-  --surface-color: rgba(255, 255, 255, 0.08); /* Semi-transparent surface for cards, buttons */
-  --border-color: rgba(255, 255, 255, 0.12); /* Subtle border for glass elements */
-  --text-color-primary: #ffffff; /* Main text color */
-  --text-color-secondary: #a0a0a5; /* Secondary text, hints */
-  --accent-color-blue: #0a84ff; /* Apple Blue for primary actions */
-  --accent-color-red: #ff453a; /* Apple Red for destructive actions */
-  --shadow-color: rgba(0, 0, 0, 0.4); /* Deeper shadow for dark theme */
+  /* --- Professional Light Theme Palette (Slate) --- */
+  --bg-body: #f8fafc;        /* Background halaman (Slate 50) */
+  --bg-card: #ffffff;        /* Background kartu (Putih) */
+  --bg-subtle: #f1f5f9;      /* Background elemen kecil (Slate 100) */
+  
+  --border-light: #e2e8f0;   /* Garis halus (Slate 200) */
+  --border-focus: #94a3b8;   /* Garis fokus (Slate 400) */
 
-  /* Glassmorphism effect properties */
-  --blur-amount: 20px;
-  --backdrop-saturate: 180%; /* To enhance the frosted look */
+  --text-primary: #0f172a;   /* Teks utama (Slate 900 - Hampir hitam) */
+  --text-secondary: #475569; /* Teks deskripsi (Slate 600) */
+  --text-muted: #94a3b8;     /* Teks non-penting (Slate 400) */
 
-  /* Spacing and Radius */
-  --spacing-unit: 16px;
-  --border-radius-lg: 18px;
-  --border-radius-md: 12px;
-  --border-radius-sm: 8px;
+  --btn-primary-bg: #0f172a; /* Tombol utama (Dark Slate) */
+  --btn-primary-text: #ffffff;
+  
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;         /* Radius kartu modern */
+  --radius-pill: 9999px;     /* Radius tombol bulat penuh */
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
 }
 
-/* Global Reset & Base Styles */
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  background-color: var(--bg-body);
+  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   margin: 0;
-  background-color: var(--bg-color);
-  color: var(--text-color-primary);
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  line-height: 1.5;
 }
 
-/* Base Styles for HTML elements */
-h1, h2, h3, h4, h5, h6 {
-  color: var(--text-color-primary);
-  font-weight: 600;
-  margin-top: 0;
-  margin-bottom: var(--spacing-unit);
-}
-p {
-  color: var(--text-color-secondary);
-  margin-top: 0;
-  margin-bottom: var(--spacing-unit);
-}
-
-/* App Layout */
-.App {
-  display: flex;
-  flex-direction: column;
+/* --- Layout --- */
+.container {
+  max-width: 680px; /* Lebar optimal untuk membaca seperti blog/twitter */
+  margin: 0 auto;
+  padding: 40px 20px;
   min-height: 100vh;
 }
 
-.container {
-  max-width: 900px; /* Lebar lebih luas untuk konten */
-  margin: var(--spacing-unit) auto;
-  padding: 0 var(--spacing-unit);
-  flex-grow: 1;
-}
-
-/* --- Components Styling --- */
-
-/* Navbar */
+/* --- Navbar Professional Styling --- */
 .navbar {
-  background-color: var(--surface-color); /* Semi-transparent background */
-  backdrop-filter: blur(var(--blur-amount)) saturate(var(--backdrop-saturate)); /* Frosted glass effect */
-  -webkit-backdrop-filter: blur(var(--blur-amount)) saturate(var(--backdrop-saturate));
-  border-bottom: 1px solid var(--border-color); /* Subtle bottom border */
-  padding: 15px 25px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   position: sticky;
   top: 0;
   z-index: 100;
+  background-color: rgba(255, 255, 255, 0.85); /* Transparan */
+  backdrop-filter: blur(12px); /* Efek Blur di belakang navbar */
+  border-bottom: 1px solid var(--border-light);
+  width: 100%;
 }
 
-.navbar h2 {
-  font-size: 22px;
-  font-weight: 700;
+/* Wrapper untuk menengahkan isi navbar sejajar dengan container utama */
+.navbar-inner {
+  max-width: 680px; /* Sama dengan .container */
+  margin: 0 auto;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.navbar-logo {
+  font-size: 20px;
+  font-weight: 800;
   margin: 0;
-  color: var(--text-color-primary);
+  background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  cursor: pointer;
 }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: var(--spacing-unit); /* Spacing between links */
+  gap: 16px;
 }
 
-.nav-links a {
+.nav-item {
   text-decoration: none;
-  color: var(--text-color-secondary);
-  font-weight: 500;
-  font-size: 16px;
-  padding: 8px 12px;
-  border-radius: var(--border-radius-sm);
-  transition: all 0.2s ease-in-out;
-}
-
-.nav-links a.active, /* Untuk menandai link aktif jika pakai NavLink */
-.nav-links a:hover {
-  color: var(--text-color-primary);
-  background-color: rgba(255, 255, 255, 0.08); /* Highlight on hover */
-}
-
-.wallet-address-display {
-  background-color: var(--surface-color);
-  border: 1px solid var(--border-color);
-  padding: 8px 14px;
-  border-radius: var(--border-radius-lg);
   font-size: 14px;
-  font-weight: 500;
-  color: var(--text-color-primary);
-  box-shadow: 0 1px 3px var(--shadow-color); /* Subtle shadow */
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: color 0.2s;
 }
 
-/* Buttons */
-.btn-primary, .btn-secondary, .btn-destructive {
-  border: none;
-  padding: 12px 22px;
-  border-radius: var(--border-radius-md);
+.nav-item:hover {
+  color: var(--text-primary);
+}
+
+.nav-item.active {
+  color: var(--text-primary);
+  /* Indikator titik di bawah menu aktif */
+  position: relative;
+}
+.nav-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--text-primary);
+  border-radius: 2px;
+}
+
+/* Tombol kecil khusus navbar */
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 12px;
+  height: auto;
+}
+
+/* --- Typography --- */
+h1, h2, h3 {
+  color: var(--text-primary);
+  font-weight: 800;
+  margin-top: 0;
+  letter-spacing: -0.025em;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: var(--text-secondary);
+}
+
+/* --- Components: Card --- */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+/* --- Components: Badge Address (Kunci Tampilan Pro) --- */
+.badge-address {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--bg-subtle);
+  color: var(--text-secondary);
+  font-family: 'JetBrains Mono', 'Menlo', monospace; /* Font coding */
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-light);
+  cursor: default;
+  letter-spacing: -0.02em;
+}
+.badge-address:hover {
+  border-color: var(--border-focus);
+  color: var(--text-primary);
+  background-color: #fff;
+}
+
+/* --- Components: Buttons --- */
+button {
   cursor: pointer;
+  font-family: 'Inter', sans-serif;
   font-weight: 600;
-  font-size: 16px;
-  transition: all 0.2s ease-in-out;
-  display: inline-flex; /* For better icon/text alignment */
+  font-size: 14px;
+  padding: 10px 18px;
+  border-radius: var(--radius-pill);
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
 }
 
 .btn-primary {
-  background-color: var(--accent-color-blue);
-  color: white;
-  box-shadow: 0 4px 10px rgba(10, 132, 255, 0.3);
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
 }
 .btn-primary:hover {
-  background-color: #007aff; /* Slightly darker blue */
-  box-shadow: 0 6px 15px rgba(10, 132, 255, 0.4);
+  background-color: #1e293b;
+  transform: translateY(-1px);
+}
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .btn-secondary {
-  background-color: var(--surface-color);
-  color: var(--text-color-primary);
-  border: 1px solid var(--border-color);
-  box-shadow: 0 2px 5px var(--shadow-color);
+  background-color: #fff;
+  color: var(--text-secondary);
+  border-color: var(--border-light);
 }
 .btn-secondary:hover {
-  background-color: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.18);
+  background-color: var(--bg-subtle);
+  color: var(--text-primary);
+  border-color: var(--border-focus);
 }
 
-.btn-destructive {
-  background-color: var(--accent-color-red);
-  color: white;
-  box-shadow: 0 4px 10px rgba(255, 69, 58, 0.3);
+.btn-icon-only {
+  padding: 8px;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
 }
-.btn-destructive:hover {
-  background-color: #cc372f; /* Slightly darker red */
-  box-shadow: 0 6px 15px rgba(255, 69, 58, 0.4);
-}
-
-/* Cards (Base for all content blocks) */
-.card {
-  background-color: var(--surface-color);
-  backdrop-filter: blur(var(--blur-amount)) saturate(var(--backdrop-saturate));
-  -webkit-backdrop-filter: blur(var(--blur-amount)) saturate(var(--backdrop-saturate));
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius-lg);
-  padding: var(--spacing-unit) calc(var(--spacing-unit) * 1.5); /* More horizontal padding */
-  margin-bottom: var(--spacing-unit);
-  box-shadow: 0 4px 15px var(--shadow-color); /* Deeper, softer shadow */
+.btn-icon-only:hover {
+  color: var(--text-primary);
+  background: var(--bg-subtle);
 }
 
-/* Forms */
-.input-group {
-  margin-bottom: var(--spacing-unit);
-}
-
-.input-group label {
-  display: block;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text-color-secondary);
-  margin-bottom: 8px;
-}
-
-.input-group input[type="text"],
-.input-group input[type="file"],
-.input-group textarea {
+/* --- Inputs --- */
+input[type="text"], textarea, input[type="file"] {
   width: 100%;
-  padding: 12px 15px;
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius-md);
+  padding: 12px 16px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 14px;
   box-sizing: border-box;
-  font-size: 16px;
-  color: var(--text-color-primary);
-  background-color: rgba(0, 0, 0, 0.2); /* Slightly darker input background */
-  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  background-color: var(--bg-subtle);
+  color: var(--text-primary);
+  transition: 0.2s;
 }
 
-.input-group input[type="text"]:focus,
-.input-group textarea:focus {
+input:focus, textarea:focus {
   outline: none;
-  border-color: var(--accent-color-blue);
-  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.3);
+  background-color: #fff;
+  border-color: var(--btn-primary-bg);
+  box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.1);
 }
 
-/* --- Specific Layout Elements --- */
-.section-title {
-  font-size: 26px;
-  font-weight: 700;
-  margin-bottom: var(--spacing-unit) * 1.5;
-  color: var(--text-color-primary);
-  text-align: center;
-  padding-top: var(--spacing-unit);
-}
-
-.no-content-message {
-  text-align: center;
-  color: var(--text-color-secondary);
-  font-style: italic;
-  padding: calc(var(--spacing-unit) * 2) 0;
-  font-size: 18px;
-  background-color: var(--surface-color);
-  border-radius: var(--border-radius-lg);
-  border: 1px solid var(--border-color);
-}
-
-/* Post Card Styles */
+/* --- Feed Layout (Home) --- */
 .post-header {
   display: flex;
-  align-items: center;
-  margin-bottom: var(--spacing-unit);
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
 }
 
 .avatar {
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  margin-right: var(--spacing-unit);
+  background: #f1f5f9;
+  color: var(--text-primary);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
-  color: var(--text-color-primary);
-  font-size: 20px;
+  font-weight: 700;
+  font-size: 18px;
+  flex-shrink: 0;
+  border: 1px solid var(--border-light);
 }
 
-.post-author {
-  font-weight: 600;
-  color: var(--text-color-primary);
-  font-size: 17px;
+.post-meta-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
 }
 
-.post-image-placeholder {
-  height: 300px; /* Lebih tinggi */
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: var(--border-radius-md);
-  margin-bottom: var(--spacing-unit);
+.post-author-name {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.post-meta-details {
   display: flex;
   align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.post-image-container {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  background: var(--bg-subtle);
+  display: flex;
   justify-content: center;
-  color: var(--text-color-secondary);
-  font-size: 16px;
-  border: 1px solid var(--border-color);
+  align-items: center;
+  margin-bottom: 16px;
 }
 
 .post-description {
-  font-size: 16px;
+  font-size: 15px;
+  color: var(--text-primary);
   line-height: 1.6;
-  margin-bottom: var(--spacing-unit);
-  color: var(--text-color-primary);
+  margin-bottom: 20px;
 }
 
 .post-actions {
+  border-top: 1px solid var(--border-light);
+  padding-top: 16px;
   display: flex;
-  align-items: center;
-  gap: var(--spacing-unit);
-  padding-top: var(--spacing-unit);
-  border-top: 1px solid var(--border-color);
+  gap: 12px;
 }
 
+/* Comments */
+.comment-section {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--border-light);
+}
 .comment-list {
-  border-top: 1px solid var(--border-color);
-  margin-top: var(--spacing-unit);
-  padding-top: var(--spacing-unit);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
 }
-
 .comment-item {
-  font-size: 14px;
-  color: var(--text-color-secondary);
-  margin-bottom: 8px;
-  padding-left: 5px;
-  border-left: 2px solid var(--accent-color-blue);
-}
-.comment-item span {
-  font-weight: 500;
-  color: var(--text-color-primary);
+  font-size: 13px;
+  background: var(--bg-subtle);
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
 }
 
-.comment-input-area {
-  display: flex;
-  margin-top: var(--spacing-unit);
-  gap: 10px;
-}
-
-/* Profile Specific Styles */
-.profile-header {
+/* --- Profile Specific Layout --- */
+.profile-cover {
   text-align: center;
-  margin-bottom: calc(var(--spacing-unit) * 2);
-  padding: calc(var(--spacing-unit) * 2);
+  padding: 40px 20px;
 }
 
-.profile-avatar {
-  width: 120px; /* Lebih besar */
-  height: 120px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  margin: 0 auto var(--spacing-unit);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  color: var(--text-color-primary);
-  font-size: 32px;
-  box-shadow: 0 4px 15px var(--shadow-color);
+.profile-avatar-lg {
+  width: 100px;
+  height: 100px;
+  font-size: 40px;
+  margin: 0 auto 16px;
+  border: 4px solid #fff;
+  box-shadow: var(--shadow-card);
 }
 
-.profile-username {
-  font-size: 32px;
-  font-weight: 700;
+.profile-name-lg {
+  font-size: 24px;
+  font-weight: 800;
   margin-bottom: 8px;
+  color: var(--text-primary);
 }
 
-.profile-wallet-address {
-  font-size: 16px;
-  color: var(--text-color-secondary);
-  margin-bottom: calc(var(--spacing-unit) * 1.5);
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 Kolom */
+  gap: 4px;
 }
 
-.profile-edit-name-section {
+.gallery-square {
+  aspect-ratio: 1/1; /* Selalu kotak */
+  background: var(--bg-subtle);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.gallery-square img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+.gallery-square:hover img {
+  transform: scale(1.05);
+}
+.gallery-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+  padding: 8px;
+  color: white;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.2s;
   display: flex;
-  justify-content: center;
-  gap: var(--spacing-unit);
-  margin-top: var(--spacing-unit);
+  gap: 8px;
 }
-.profile-edit-name-section input {
-    width: 280px;
+.gallery-square:hover .gallery-overlay {
+  opacity: 1;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .navbar {
-    padding: 15px;
-  }
-  .nav-links a {
-    margin-left: 15px;
-  }
-  .container {
-    padding: 0 15px;
-  }
-  .post-image-placeholder {
-    height: 200px;
-  }
-  .profile-avatar {
-    width: 90px;
-    height: 90px;
-    font-size: 28px;
-  }
-  .profile-username {
-    font-size: 26px;
-  }
-  .profile-edit-name-section {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .profile-edit-name-section input, .profile-edit-name-section button {
-    width: 100%;
-  }
-}
+/* Utility */
+.text-center { text-align: center; }
+.text-muted { color: var(--text-muted); }

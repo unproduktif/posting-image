@@ -92,40 +92,38 @@ function App() {
   return (
     <Router>
       <div className="App">
-        {/* NAVBAR */}
+        {/* NAVBAR MODIFIED */}
         <nav className="navbar">
-          <h2 style={{ letterSpacing: "1px" }}>MetaSnap</h2>
+          <div className="navbar-inner">
+            <h2 className="navbar-logo">MetaSnap</h2>
 
-          <div className="nav-links">
-            {account ? (
-              <>
-                <NavLink
-                  to="/"
-                  className={({ isActive }) => (isActive ? "active" : "")}
-                >
-                  Feed
-                </NavLink>
-                <NavLink
-                  to="/profile"
-                  className={({ isActive }) => (isActive ? "active" : "")}
-                >
-                  Profil
-                </NavLink>
+            <div className="nav-links">
+              {account ? (
+                <>
+                  <NavLink
+                    to="/"
+                    className={({ isActive }) => (isActive ? "nav-item active" : "nav-item")}
+                  >
+                    Feed
+                  </NavLink>
+                  <NavLink
+                    to="/profile"
+                    className={({ isActive }) => (isActive ? "nav-item active" : "nav-item")}
+                  >
+                    Profil
+                  </NavLink>
 
-                <span className="wallet-address-display">
-                  {account.substring(0, 6)}...
-                  {account.substring(account.length - 4)}
-                </span>
+                  <span className="badge-address">
+                    {account.substring(0, 6)}...
+                    {account.substring(account.length - 4)}
+                  </span>
 
-                <button className="btn-secondary" onClick={logoutWallet}>
-                  Logout
-                </button>
-              </>
-            ) : (
-              <button className="btn-primary" onClick={connectWallet}>
-                Connect Wallet
-              </button>
-            )}
+                  <button className="btn-secondary btn-sm" onClick={logoutWallet}>
+                    Logout
+                  </button>
+                </>
+              ) : null /* Tombol Connect dihapus di sini sesuai permintaan */}
+            </div>
           </div>
         </nav>
 
@@ -169,9 +167,9 @@ function App() {
 
 function LoginPage({ connectWallet }) {
   return (
-    <div className="card" style={{ textAlign: "center", padding: "50px" }}>
+    <div className="card" style={{ textAlign: "center", padding: "60px 20px" }}>
       <h2>Selamat Datang di MetaSnap!</h2>
-      <p>Hubungkan dompet MetaMask untuk melanjutkan.</p>
+      <p style={{marginBottom: "24px"}}>Hubungkan dompet MetaMask untuk mulai berbagi momen.</p>
       <button className="btn-primary" onClick={connectWallet}>
         Hubungkan MetaMask
       </button>
