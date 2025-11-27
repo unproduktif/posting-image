@@ -20,9 +20,17 @@ function App() {
 
   // CONNECT WALLET
   const connectWallet = async () => {
-    if (!window.ethereum) return alert("Install MetaMask terlebih dahulu!");
+    if (!window.ethereum) 
+      return alert("Install MetaMask terlebih dahulu!");
 
     try {
+      // 1. Paksa MetaMask buka popup pilihan akun
+      await window.ethereum.request({
+        method: "wallet_requestPermissions",
+        params: [{ eth_accounts: {} }],
+      });
+
+      // 2. Ambil akun setelah user memilih
       const accounts = await window.ethereum.request({
         method: "eth_requestAccounts",
       });
@@ -30,11 +38,11 @@ function App() {
       if (accounts.length > 0) {
         setAccount(accounts[0]);
       }
+
     } catch (err) {
       console.error("User rejected:", err);
     }
   };
-
 
   // LOAD CONTRACT SETIAP KALI ACCOUNT BERUBAH
   useEffect(() => {

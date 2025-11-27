@@ -23,6 +23,7 @@ contract PostingImage {
 
     uint256 public totalPosts = 0;
     mapping(uint256 => Post) public posts;
+    mapping(uint256 => mapping(address => bool)) public hasLiked;
 
     event UsernameUpdated(address indexed user, string username);
 
@@ -71,7 +72,13 @@ contract PostingImage {
     // =====================================================
     function likePost(uint256 postId) public {
         require(postId < totalPosts, "Post not found");
+        require(!hasLiked[postId][msg.sender], "Anda sudah like postingan ini");
+
         posts[postId].likes++;
+
+        // Penting → tandai bahwa user sudah like
+        hasLiked[postId][msg.sender] = true;
+
         emit PostLiked(postId, msg.sender, posts[postId].likes);
     }
 
@@ -86,6 +93,19 @@ contract PostingImage {
         );
 
         emit CommentAdded(postId, msg.sender, text, block.timestamp);
+    }
+
+    function getCommentCount(uint256 postId) public view returns (uint256) {
+        return posts[postId].comments.length;
+    }
+
+    function getComment(uint256 postId, uint256 index)
+        public
+        view
+        returns (address, string memory, uint256)
+    {
+        Comment storage c = posts[postId].comments[index];
+        return (c.author, c.text, c.timestamp);
     }
 
     // =====================================================
