@@ -44,17 +44,11 @@ contract PostingImage {
         uint256 timestamp
     );
 
-    // =====================================================
-    // USERNAME
-    // =====================================================
     function setUsername(string memory name) public {
         usernames[msg.sender] = name;
         emit UsernameUpdated(msg.sender, name);
     }
 
-    // =====================================================
-    // CREATE POST
-    // =====================================================
     function createPost(string memory img, string memory desc) public {
         Post storage p = posts[totalPosts];
         p.id = totalPosts;
@@ -67,9 +61,6 @@ contract PostingImage {
         totalPosts++;
     }
 
-    // =====================================================
-    // LIKE
-    // =====================================================
     function likePost(uint256 postId) public {
         require(postId < totalPosts, "Post not found");
         require(!hasLiked[postId][msg.sender], "Anda sudah like postingan ini");
@@ -82,9 +73,6 @@ contract PostingImage {
         emit PostLiked(postId, msg.sender, posts[postId].likes);
     }
 
-    // =====================================================
-    // COMMENT
-    // =====================================================
     function addComment(uint256 postId, string memory text) public {
         require(postId < totalPosts, "Post not found");
 
@@ -108,9 +96,6 @@ contract PostingImage {
         return (c.author, c.text, c.timestamp);
     }
 
-    // =====================================================
-    // GET POST
-    // =====================================================
     function getPost(uint256 id)
         public
         view
